@@ -27,29 +27,14 @@ RUN apk add -q --update --progress --no-cache git sudo openssh-client zsh \
 
 RUN go install github.com/go-delve/delve/cmd/dlv@latest
 
-RUN apk update \
-    && apk add --no-cache git \
-       cmake \
-       g++ \
-       make \
-       jpeg jpeg-dev \
-       libpng libpng-dev \
-       giflib giflib-dev \
-       openblas \
-       openblas-dev \
-       ca-certificates wget \
-    && rm -rf /var/cache/apk/*
+RUN mkdir /dlib && cd /dlib && \
+    wget -c -q  http://dlib.net/files/dlib-19.24.tar.bz2 && \
+    tar xf dlib-19.24.tar.bz2 && rm dlib-19.24.tar.bz2
 
-RUN wget -c -q https://github.com/davisking/dlib/archive/master.tar.gz \
- && tar xvf master.tar.gz \
- && mv dlib-master dlib
-
-RUN mkdir -p dlib/build \
- && (cd dlib/build \
-    && cmake -DDLIB_PNG_SUPPORT=ON -DDLIB_GIF_SUPPORT=ON -DDLIB_JPEG_SUPPORT=ON .. \
-    && make \
-    && make install) \
- && rm master.tar.gz
+RUN cd /dlib/dlib-19.24 && mkdir build && \
+    cd build && cmake .. && \
+    cmake --build . --config Release && \
+    make install && rm -rf /dlib
 
 # Setup shell
 USER $USERNAME
