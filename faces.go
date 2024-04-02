@@ -76,6 +76,7 @@ func main() {
 	s.OpenAPISchema().SetVersion(version.Info().Version)
 
 	s.Post("/image", uploadImage(rec))
+	s.Post("/detect", controllers.detect(rec))
 
 	// Swagger UI endpoint at /docs.
 	s.Docs("/docs", swgui.New)

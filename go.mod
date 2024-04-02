@@ -1,4 +1,4 @@
-module github.com/vearutop/faces
+module github.com/ruanitto/go-faces
 
 go 1.21
 
@@ -14,6 +14,7 @@ require (
 
 require (
 	github.com/go-chi/chi/v5 v5.0.10 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/santhosh-tekuri/jsonschema/v3 v3.1.0 // indirect
 	github.com/swaggest/form/v5 v5.1.1 // indirect
 	github.com/swaggest/refl v1.3.0 // indirect
