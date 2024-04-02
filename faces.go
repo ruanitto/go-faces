@@ -19,6 +19,7 @@ import (
 	"github.com/swaggest/rest/web"
 	swgui "github.com/swaggest/swgui/v5emb"
 	"github.com/swaggest/usecase"
+	"github.com/ruanitto/go-faces/controllers"
 )
 
 //go:embed models
@@ -76,7 +77,7 @@ func main() {
 	s.OpenAPISchema().SetVersion(version.Info().Version)
 
 	s.Post("/image", uploadImage(rec))
-	s.Post("/detect", controllers.detect(rec))
+	s.Post("/detect",  facial.detect(rec))
 
 	// Swagger UI endpoint at /docs.
 	s.Docs("/docs", swgui.New)
